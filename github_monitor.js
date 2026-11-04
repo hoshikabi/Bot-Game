@@ -11,11 +11,19 @@ let latestCommit = null;
 
 async function checkGitHub(client) {
     try {
+        const token = process.env.GITHUB_TOKEN;
+
+        if (!token) {
+            console.error('GITHUB_TOKENが設定されていません');
+            return;
+        }
+
         const response = await axios.get(
             `https://api.github.com/repos/${OWNER}/${REPO}/commits`,
             {
                 headers: {
-                    Accept: 'application/vnd.github+json'
+                    Accept: 'application/vnd.github+json',
+                    Authorization: `Bearer ${token}`
                 },
                 params: {
                     per_page: 1
