@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\xinti\\Desktop\\Bot\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xinti\\Desktop\\Bot\\github_monitor.js||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:github_monitor.js||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xinti\\Desktop\\Bot\\main.js||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:main.js||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xinti\\Desktop\\Bot\\pages\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xinti\\Desktop\\Bot\\github_monitor.js||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:github_monitor.js||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,7 +30,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "index.html",
               "DocumentMoniker": "C:\\Users\\xinti\\Desktop\\Bot\\pages\\index.html",
               "RelativeDocumentMoniker": "pages\\index.html",
@@ -38,25 +38,24 @@
               "RelativeToolTip": "pages\\index.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-11-04T11:48:40.29Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-04T11:48:40.29Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "github_monitor.js",
               "DocumentMoniker": "C:\\Users\\xinti\\Desktop\\Bot\\github_monitor.js",
               "RelativeDocumentMoniker": "github_monitor.js",
               "ToolTip": "C:\\Users\\xinti\\Desktop\\Bot\\github_monitor.js",
               "RelativeToolTip": "github_monitor.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-11-04T11:46:11.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "main.js",
               "DocumentMoniker": "C:\\Users\\xinti\\Desktop\\Bot\\main.js",
               "RelativeDocumentMoniker": "main.js",
