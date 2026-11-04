@@ -5,7 +5,7 @@ const OWNER = 'Dolphin-kun';
 const REPO = 'discord_bot_template';
 
 // 通知先チャンネルID
-const CHANNEL_ID = 'ボット';
+const CHANNEL_ID = '1567461833437216789';
 
 let latestCommit = null;
 
