@@ -54,8 +54,12 @@ async function checkGitHub(client) {
             console.log('GitHubの更新を通知しました');
         }
 
-    } catch (error) {
-        console.error('GitHub監視エラー:', error.message);
+    } } catch (error) {
+    console.error('GitHub監視エラー:', error.message);
+    console.error('HTTPステータス:', error.response?.status);
+    console.error('GitHubの応答:', error.response?.data);
+    console.error('API残り回数:', error.response?.headers?.['x-ratelimit-remaining']);
+}
     }
 }
 
