@@ -64,4 +64,10 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
+const { startGitHubMonitor } = require('./github_monitor');
+
+client.once(Events.ClientReady, () => {
+    startGitHubMonitor(client);
+});
+
 client.login(process.env.TOKEN);

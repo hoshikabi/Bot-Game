@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\events"
+    "\\commands",
+    "\\events",
+    "\\pages"
   ],
+  "SelectedNode": "\\main.js",
   "PreviewInSolutionExplorer": false
 }
