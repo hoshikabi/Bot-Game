@@ -1,8 +1,8 @@
 
 const axios = require('axios');
 
-const OWNER = 'Dolphin-kun';
-const REPO = 'discord_bot_template';
+const OWNER = 'xintianbaoshi-netizen';
+const REPO = 'Bot';
 
 // 通知先チャンネルID
 const CHANNEL_ID = '1567461833437216789';
