@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "チーム制作\\x64\\Debug\\CPU.obj",
+            "outputs": [
+                "チーム制作\\x64\\Debug\\CPU.h.obj.dt.module.json",
+                "チーム制作\\x64\\Debug\\CPU.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
