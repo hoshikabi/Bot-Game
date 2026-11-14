@@ -128,3 +128,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+.vs/
+x64/
+x86/
+Debug/
+Release/
+*.user
+*.exe
+*.obj
+*.pdb
