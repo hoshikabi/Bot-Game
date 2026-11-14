@@ -129,12 +129,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# NuGetパッケージ本体を除外（設定ファイルだけ残す）
+packages/
+!packages/repositories.config
+
+# Visual Studioのビルド生成物（未設定の場合）
 .vs/
 x64/
-x86/
 Debug/
 Release/
-*.user
-*.exe
-*.obj
-*.pdb
