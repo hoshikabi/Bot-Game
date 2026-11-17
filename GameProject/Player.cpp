@@ -49,6 +49,10 @@ void Player::Move()
 	{
 		posX += MOVE_SPEED;
 	}
+	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
+	{
+		DrawString(20, 20, "ƒNƒŠƒbƒN‚³‚ê‚Ä‚¢‚Ü‚·", GetColor(255, 0, 0));
+	}
 
 	if (posX < 32) posX = 32;
 	if (posX > 1888) posX = 1888;
