@@ -48,7 +48,7 @@ void Player::Draw()
 	{
 		if (enemy[i].isAttached)
 		{
-			DrawString(20, 20,"ATTACHED!",GetColor(255, 255, 255));
+			DrawString(20, 20,"ATTACHED",GetColor(255, 255, 255));
 			break;
 		}
 	}
