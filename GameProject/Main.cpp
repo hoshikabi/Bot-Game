@@ -1,5 +1,7 @@
 #include"DxLib.h"
+#include"Player.h"
 
+Player* player = new Player;
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	ChangeWindowMode(TRUE);
@@ -13,7 +15,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		ClearDrawScreen();
-
+		player->Update();
 		ScreenFlip();
 	}
 
