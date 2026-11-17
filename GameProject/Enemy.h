@@ -21,4 +21,5 @@ private:
     //Enemyの移動方向
     float moveX;
     float moveY;
+    int sample;
 };
