@@ -1,8 +1,16 @@
 #pragma once
+class Enemy
+{
+public:
+	int ex, ey;//敵の中心座標
+	int er;//敵の半径
+};
+
 class Player
 {
 private:
 	int posX, posY;
+	int r;//プレイヤーの半径
 	int size = 32;
 	int Img;
 public:
@@ -11,5 +19,5 @@ public:
 	void Draw();
 	void Update();
 	void Move();
-	bool Collision(int px, int py, int pw, int ph, int ex, int ey, int ew, int eh);
+	bool CheckHitCircle(const Player& player, const Enemy& enemy);
 };

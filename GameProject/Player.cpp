@@ -1,5 +1,6 @@
 #include"DxLib.h"
 #include"Player.h"
+#include<cmath>
 
 namespace
 {
@@ -61,14 +62,16 @@ void Player::Move()
 	if (posY > 1048) posY = 1048;
 }
 
-bool Player::Collision(int px, int py, int pw, int ph, int ex, int ey, int ew, int eh)
+bool Player::CheckHitCircle(const Player& player, const Enemy& enemy)
 {
-	if (px < ex + ew &&
-		px + pw >  ex &&
-		py < ey + eh &&
-		py + ph > ey)
+	double dx = player.posX - enemy.ex;
+	double dy = player.posY - enemy.ey;
+	double distance = (dx * dx) + (dy * dy);
+	double r_distance = (player.r + enemy.er);
+	if(distance <= r_distance * r_distance)
 	{
 		return true;
 	}
 	return false;
 }
+	
