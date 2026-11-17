@@ -9,4 +9,5 @@ public:
 	void Draw();
 	void Update();
 	void Move();
+	void sample();
 };
