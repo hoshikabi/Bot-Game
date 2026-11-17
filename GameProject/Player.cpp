@@ -56,3 +56,15 @@ void Player::Move()
 	if (posY < 32) posY = 32;
 	if (posY > 1048) posY = 1048;
 }
+
+bool Player::Collision(int px, int py, int pw, int ph, int ex, int ey, int ew, int eh)
+{
+	if (px < ex + ew &&
+		px + pw >  ex &&
+		py < ey + eh &&
+		py + ph > ey)
+	{
+		return true;
+	}
+	return false;
+}

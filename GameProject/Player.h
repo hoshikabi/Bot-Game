@@ -11,4 +11,5 @@ public:
 	void Draw();
 	void Update();
 	void Move();
+	bool Collision(int px, int py, int pw, int ph, int ex, int ey, int ew, int eh);
 };
