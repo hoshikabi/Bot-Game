@@ -6,6 +6,7 @@ namespace
 	constexpr int SPAWN_X = 960;
 	constexpr int SPAWN_Y = 540;
 	constexpr float  MOVE_SPEED = 5.0f;
+
 }
 
 Player::Player() :posX(SPAWN_X), posY(SPAWN_Y) {}
@@ -44,4 +45,10 @@ void Player::Move()
 	{
 		posX += MOVE_SPEED;
 	}
+
+	if (posX < 32) posX = 32;
+	if (posX > 1888) posX = 1888;
+
+	if (posY < 32) posY = 32;
+	if (posY > 1048) posY = 1048;
 }
