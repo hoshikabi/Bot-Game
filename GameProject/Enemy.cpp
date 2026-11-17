@@ -15,6 +15,7 @@ void Enemy::Update(const Player& player)
     //Playerとの距離
     float dx = x;//- player.x;
     float dy = y;//- player.y;
+
     //PlayerとEnemyの距離を二乗する
     float distances = dx * dx + dy * dy;
     //
@@ -39,7 +40,44 @@ void Enemy::Update(const Player& player)
             moveY /= length;
         }
     }
+
+    //移動前のX座標とY座標を取得する
+    prevX = x;
+    prevY = y;
     //speedを掛けて逃げる
     x += moveX * speed;
     y += moveY * speed;
+
+   // 仮のプレイヤーの中心と半径
+   const float playerX = 100.0f;
+   const float playerY = 100.0f;
+   const float playerRadius = 32.0f;
+
+   // 移動後のCPUとプレイヤーの中心座標の差
+   const float diffX = x - playerX;
+   const float diffY = y - playerY;
+   const float distanceSquared = diffX * diffX + diffY * diffY;//三平方の定理からそれぞれの中心からの距離を出す
+
+   const float touchDistance = radius + playerRadius;
+   //中心からの距離が半径の合計以下だったら
+   if (distanceSquared <= touchDistance * touchDistance)
+   {
+       // ここまで来たら、2つの円が触れているか、重なっている
+       if (distanceSquared == 0)
+       {
+           x = playerX + touchDistance;
+           y = playerY;
+       }
+       else
+       {
+           //Xの過ぎた分の押し戻し
+           x += diffX / sqrt(distanceSquared) * (touchDistance - sqrt(distanceSquared));
+           //Yの過ぎた文の押し戻し
+           y += diffY / sqrt(distanceSquared) * (touchDistance - sqrt(distanceSquared));
+       }
+       //押し戻した後、鬼の中心から見たCPUの位置を保存する
+       offsetX = x - playerX;
+       offsetY = y - playerY;
+
+   }
 }
