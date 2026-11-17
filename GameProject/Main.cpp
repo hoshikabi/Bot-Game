@@ -1,7 +1,6 @@
 #include"DxLib.h"
 #include"Player.h"
 
-Player* player = new Player;
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	ChangeWindowMode(TRUE);
@@ -11,6 +10,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	SetGraphMode(1920, 1080, 32);
 
 	SetDrawScreen(DX_SCREEN_BACK);
+Player* player = new Player;
 
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{

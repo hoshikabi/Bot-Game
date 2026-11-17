@@ -6,19 +6,23 @@ namespace
 	constexpr int SPAWN_X = 960;
 	constexpr int SPAWN_Y = 540;
 	constexpr float  MOVE_SPEED = 5.0f;
-
+	constexpr float DIAGONAL_FACTOR = 0.707f;
 }
 
-Player::Player() :posX(SPAWN_X), posY(SPAWN_Y) {}
+Player::Player() :posX(SPAWN_X), posY(SPAWN_Y) 
+{
+	Img = LoadGraph("Img/sample.png");
+}
 
 Player::~Player()
 {
-
+	DeleteGraph(Img);
 }
 
 void Player::Draw()
 {
-	DrawCircle(posX, posY, 32,GetColor(0, 255, 0), true);
+	DrawExtendGraph(posX,posY,posX + size,posY + size,Img,TRUE);
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "x:%d y:%d", posX, posY);
 }
 
 void Player::Update()
