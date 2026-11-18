@@ -52,6 +52,11 @@ void Player::Draw()
 			break;
 		}
 	}
+
+#ifdef _DEBUG
+	DrawRect(0x0000ff, false);
+#endif // 
+
 }
 
 void Player::Update()
@@ -95,8 +100,8 @@ void Player::Move()
 
 bool Player::CheckHitCircle(const Player& player, const Enemy& enemy)
 {
-	double dx = player.posX - enemy.ex;
-	double dy = player.posY - enemy.ey;
+	double dx = enemy.ex - (player.posX + player.size/2);
+	double dy = enemy.ey - (player.posY + player.size/2);
 	double distance = (dx * dx) + (dy * dy);
 	double r_distance = (player.r + enemy.er);
 	if(distance <= r_distance * r_distance)
@@ -150,4 +155,10 @@ void Player::HitEnemy()
 				static_cast<int>(playerY + enemy[i].offsetY);
 		}
 	}
+}
+
+
+void Player::DrawRect(unsigned int color,bool isFill)
+{
+	DrawCircle(static_cast<int>(posX + size/2), static_cast<int>(posY + size/2), static_cast<int>(r), color, isFill);
 }
