@@ -16,7 +16,7 @@ Player::Player() :posX(SPAWN_X), posY(SPAWN_Y)
 {
 	Img = LoadGraph("Img/Player.png");
 
-	// ‰¼‚Ì“G‚ğİ’è
+	// ï¿½ï¿½ï¿½Ì“Gï¿½ï¿½İ’ï¿½
 	enemy[0] = { 1100, 540, 20 };
 	enemy[1] = { 800, 400, 20 };
 	enemy[2] = { 1200, 700, 20 };
@@ -31,7 +31,7 @@ void Player::Draw()
 {
 	DrawExtendGraph(posX,posY,posX + size,posY + size,Img,TRUE);
 	//DrawFormatString(0, 0, GetColor(255, 255, 255),"x:%d y:%d", posX, posY);
-	// “G‚Ì•`‰æ
+	// ï¿½Gï¿½Ì•`ï¿½ï¿½
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		int color = GetColor(0, 255, 0);
@@ -52,6 +52,11 @@ void Player::Draw()
 			break;
 		}
 	}
+
+#ifdef _DEBUG
+	DrawRect(0x0000ff, false);
+#endif // 
+
 }
 
 void Player::Update()
@@ -82,7 +87,7 @@ void Player::Move()
 	}
 	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
 	{
-		DrawString(20, 20, "ƒNƒŠƒbƒN‚³‚ê‚Ä‚¢‚Ü‚·", GetColor(255, 0, 0));
+		DrawString(20, 20, "ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½", GetColor(255, 0, 0));
 	}
 
 	if (posX < 32) posX = 32;
@@ -96,8 +101,8 @@ void Player::Move()
 
 bool Player::CheckHitCircle(const Player& player, const Enemy& enemy)
 {
-	double dx = player.posX - enemy.ex;
-	double dy = player.posY - enemy.ey;
+	double dx = enemy.ex - (player.posX + player.size/2);
+	double dy = enemy.ey - (player.posY + player.size/2);
 	double distance = (dx * dx) + (dy * dy);
 	double r_distance = (player.r + enemy.er);
 	if(distance <= r_distance * r_distance)
@@ -160,20 +165,20 @@ void Player::PushEnemy()
 	{
 		for (int j = i + 1; j < 3; j++)
 		{
-			// “G“¯m‚Ì‹——£‚ğŒvZ
+			// ï¿½Gï¿½ï¿½ï¿½mï¿½Ì‹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
 			float dx = static_cast<float>(enemy[j].ex - enemy[i].ex);
 			float dy = static_cast<float>(enemy[j].ey - enemy[i].ey);
 
 			float distance = sqrtf(dx * dx + dy * dy);
 
-			// “G“¯m‚ªÚG‚·‚é‹——£
+			// ï¿½Gï¿½ï¿½ï¿½mï¿½ï¿½ï¿½ÚGï¿½ï¿½ï¿½é‹—ï¿½ï¿½
 			float minDistance =
 				static_cast<float>(enemy[i].er + enemy[j].er);
 
-			// d‚È‚Á‚Ä‚¢‚éê‡
+			// ï¿½dï¿½È‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡
 			if (distance < minDistance)
 			{
-				// Š®‘S‚É“¯‚¶ˆÊ’u‚Ìê‡
+				// ï¿½ï¿½ï¿½Sï¿½É“ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ìê‡
 				if (distance == 0)
 				{
 					dx = 1.0f;
@@ -181,10 +186,10 @@ void Player::PushEnemy()
 					distance = 1.0f;
 				}
 
-				// d‚È‚Á‚Ä‚¢‚é‹——£
+				// ï¿½dï¿½È‚ï¿½ï¿½Ä‚ï¿½ï¿½é‹—ï¿½ï¿½
 				float overlap = minDistance - distance;
 
-				// “G“¯m‚ğ”¼•ª‚¸‚Â‰Ÿ‚µ–ß‚·
+				// ï¿½Gï¿½ï¿½ï¿½mï¿½ğ”¼•ï¿½ï¿½ï¿½ï¿½Â‰ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 				float pushX = dx / distance * overlap / 2.0f;
 				float pushY = dy / distance * overlap / 2.0f;
 
@@ -196,4 +201,8 @@ void Player::PushEnemy()
 			}
 		}
 	}
+}
+void Player::DrawRect(unsigned int color,bool isFill)
+{
+	DrawCircle(static_cast<int>(posX + size/2), static_cast<int>(posY + size/2), static_cast<int>(r), color, isFill);
 }
