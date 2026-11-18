@@ -58,6 +58,7 @@ void Player::Update()
 {
 	Draw();
 	HitEnemy();
+	PushEnemy();
 	Move();
 }
 
@@ -148,6 +149,51 @@ void Player::HitEnemy()
 
 			enemy[i].ey =
 				static_cast<int>(playerY + enemy[i].offsetY);
+		}
+	}
+}
+
+
+void Player::PushEnemy()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = i + 1; j < 3; j++)
+		{
+			// “G“¯m‚Ì‹——£‚ğŒvZ
+			float dx = static_cast<float>(enemy[j].ex - enemy[i].ex);
+			float dy = static_cast<float>(enemy[j].ey - enemy[i].ey);
+
+			float distance = sqrtf(dx * dx + dy * dy);
+
+			// “G“¯m‚ªÚG‚·‚é‹——£
+			float minDistance =
+				static_cast<float>(enemy[i].er + enemy[j].er);
+
+			// d‚È‚Á‚Ä‚¢‚éê‡
+			if (distance < minDistance)
+			{
+				// Š®‘S‚É“¯‚¶ˆÊ’u‚Ìê‡
+				if (distance == 0)
+				{
+					dx = 1.0f;
+					dy = 0.0f;
+					distance = 1.0f;
+				}
+
+				// d‚È‚Á‚Ä‚¢‚é‹——£
+				float overlap = minDistance - distance;
+
+				// “G“¯m‚ğ”¼•ª‚¸‚Â‰Ÿ‚µ–ß‚·
+				float pushX = dx / distance * overlap / 2.0f;
+				float pushY = dy / distance * overlap / 2.0f;
+
+				enemy[i].ex -= static_cast<int>(ceilf(pushX));
+				enemy[i].ey -= static_cast<int>(ceilf(pushY));
+
+				enemy[j].ex += static_cast<int>(ceilf(pushX));
+				enemy[j].ey += static_cast<int>(ceilf(pushY));
+			}
 		}
 	}
 }

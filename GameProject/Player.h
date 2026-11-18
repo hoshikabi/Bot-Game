@@ -24,6 +24,8 @@ public:
 	void Draw();
 	void Update();
 	void Move();
+
+	void PushEnemy();
 	void HitEnemy(); // 敵にヒット時
 	bool CheckHitCircle(const Player& player, const Enemy& enemy);
 };
