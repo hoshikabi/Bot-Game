@@ -14,7 +14,7 @@ namespace
 
 Player::Player() :posX(SPAWN_X), posY(SPAWN_Y) 
 {
-	Img = LoadGraph("Img/sample.png");
+	Img = LoadGraph("Img/Player.png");
 
 	// ‰¼‚Ì“G‚ğİ’è
 	enemy[0] = { 1100, 540, 20 };
