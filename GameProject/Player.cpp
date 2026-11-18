@@ -1,6 +1,7 @@
 ﻿#include"DxLib.h"
 #include"Player.h"
 #include<cmath>
+#include<vector>
 
 namespace
 {
@@ -34,14 +35,19 @@ void Player::Draw()
 	// 敵の描画
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
-		int color = GetColor(0, 255, 0);
+		enemy[i].EnemyColor = GetColor(0, 255, 0);
 
 		if (enemy[i].isAttached)
 		{
-			color = GetColor(255, 0, 0);
+			enemy[i].EnemyColor = GetColor(255, 0, 0);
+		}
+		if (!playerhand.empty())
+		{
+			int selectEnemy = playerhand[choice];
+			enemy[selectEnemy].EnemyColor = GetColor(255, 255, 255);
 		}
 
-		DrawCircle(enemy[i].ex,enemy[i].ey,enemy[i].er,color,TRUE);
+		DrawCircle(enemy[i].ex,enemy[i].ey,enemy[i].er,enemy[i].EnemyColor,TRUE);
 	}
 
 	for (int i = 0; i < ENEMY_COUNT; i++)
@@ -64,6 +70,7 @@ void Player::Update()
 	Draw();
 	HitEnemy();
 	PushEnemy();
+	ChoiceEnemy();
 	Move();
 }
 
@@ -87,7 +94,7 @@ void Player::Move()
 	}
 	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
 	{
-		DrawString(20, 20, "?N???b?N?????????", GetColor(255, 0, 0));
+		DrawString(20, 20, "クリックされています", GetColor(255, 0, 0));
 	}
 
 	if (posX < 32) posX = 32;
@@ -116,7 +123,7 @@ void Player::HitEnemy()
 {
 	float playerX = posX + size / 2.0f;
 	float playerY = posY + size / 2.0f;
-
+	handCount = 0;
 	for (int i = 0; i < 3; i++)
 	{
 		if (!enemy[i].isAttached)
@@ -124,6 +131,7 @@ void Player::HitEnemy()
 			if (CheckHitCircle(*this, enemy[i]))
 			{
 				enemy[i].isAttached = true;
+				playerhand.push_back(i);
 
 				float dx = enemy[i].ex - playerX;
 				float dy = enemy[i].ey - playerY;
@@ -205,4 +213,20 @@ void Player::PushEnemy()
 void Player::DrawRect(unsigned int color,bool isFill)
 {
 	DrawCircle(static_cast<int>(posX + size/2), static_cast<int>(posY + size/2), static_cast<int>(r), color, isFill);
+}
+
+void Player::ChoiceEnemy()
+{
+	handCount = static_cast<int>(playerhand.size());
+	// マウスの状態を取得
+	currentMouse = GetMouseInput();
+	if ((currentMouse & MOUSE_INPUT_RIGHT) != 0 && (prevMouse & MOUSE_INPUT_RIGHT) == 0 && handCount > 0)
+	{
+		// 敵を選択するロジック
+		choice = (choice + 1) % handCount;
+		
+	}
+	DrawFormatString(20, 40, GetColor(255,0,0), "choice%d", choice);
+	prevMouse = currentMouse;
+
 }

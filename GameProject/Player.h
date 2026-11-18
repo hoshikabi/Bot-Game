@@ -1,4 +1,5 @@
 #pragma once
+#include<vector>
 class Enemy
 {
 public:
@@ -8,6 +9,7 @@ public:
 	bool isAttached = false; // くっついているか
 	float offsetX = 0;       // プレイヤーの相対位置
 	float offsetY = 0;
+	int EnemyColor;
 };
 
 class Player
@@ -17,7 +19,16 @@ private:
 	int r = 32;//プレイヤーの半径
 	int size = 64;
 	int Img;
+
+	//マウス入力関係
+	int choice = 0;
+	int prevMouse = 0;
+	int currentMouse = 0;
+
+
 	Enemy enemy[3]; //仮の敵を保持
+	std::vector<int>playerhand; // プレイヤーが持っている敵を保持
+	int handCount = 0;
 public:
 	/// <summary>
 	/// インスタンス
@@ -58,4 +69,6 @@ public:
 /// <param name="color">色</param>
 /// <param name="isFill">塗りつぶし</param>
 	void DrawRect(unsigned int color,bool isFill);
+
+	void ChoiceEnemy();
 };
