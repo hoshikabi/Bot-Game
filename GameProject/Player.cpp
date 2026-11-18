@@ -1,4 +1,4 @@
-#include"DxLib.h"
+﻿#include"DxLib.h"
 #include"Player.h"
 #include<cmath>
 
@@ -16,7 +16,7 @@ Player::Player() :posX(SPAWN_X), posY(SPAWN_Y)
 {
 	Img = LoadGraph("Img/Player.png");
 
-	// ���̓G��ݒ�
+	// 敵（仮）の配置位置
 	enemy[0] = { 1100, 540, 20 };
 	enemy[1] = { 800, 400, 20 };
 	enemy[2] = { 1200, 700, 20 };
@@ -31,7 +31,7 @@ void Player::Draw()
 {
 	DrawExtendGraph(posX,posY,posX + size,posY + size,Img,TRUE);
 	//DrawFormatString(0, 0, GetColor(255, 255, 255),"x:%d y:%d", posX, posY);
-	// �G�̕`��
+	// 敵の描画
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		int color = GetColor(0, 255, 0);
@@ -87,7 +87,7 @@ void Player::Move()
 	}
 	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
 	{
-		DrawString(20, 20, "�N���b�N����Ă��܂�", GetColor(255, 0, 0));
+		DrawString(20, 20, "?N???b?N?????????", GetColor(255, 0, 0));
 	}
 
 	if (posX < 32) posX = 32;
@@ -165,20 +165,20 @@ void Player::PushEnemy()
 	{
 		for (int j = i + 1; j < 3; j++)
 		{
-			// �G���m�̋������v�Z
+			// 中心座標の差
 			float dx = static_cast<float>(enemy[j].ex - enemy[i].ex);
 			float dy = static_cast<float>(enemy[j].ey - enemy[i].ey);
-
+			//二点間の距離
 			float distance = sqrtf(dx * dx + dy * dy);
 
-			// �G���m���ڐG���鋗��
+			//最小距離 
 			float minDistance =
 				static_cast<float>(enemy[i].er + enemy[j].er);
 
-			// �d�Ȃ��Ă���ꍇ
+			//重なっている場合
 			if (distance < minDistance)
 			{
-				// ���S�ɓ����ʒu�̏ꍇ
+				//同じ座標にいる場合
 				if (distance == 0)
 				{
 					dx = 1.0f;
@@ -186,10 +186,10 @@ void Player::PushEnemy()
 					distance = 1.0f;
 				}
 
-				// �d�Ȃ��Ă��鋗��
+				//重なっている距離
 				float overlap = minDistance - distance;
 
-				// �G���m�𔼕��������߂�
+				//押し戻し
 				float pushX = dx / distance * overlap / 2.0f;
 				float pushY = dy / distance * overlap / 2.0f;
 
