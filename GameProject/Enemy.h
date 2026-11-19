@@ -12,6 +12,8 @@ public:
     //座標取得
     float x;
     float y;
+    //描画
+    void Draw() const;
 
 private:
     //円の半径
@@ -29,5 +31,7 @@ private:
     //鬼の中心から見た、くっついた位置
     float offsetX;
     float offsetY;
+
+    int imageHandle;
         
 };

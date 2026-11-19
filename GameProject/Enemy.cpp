@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include"Dxlib.h"
 //#include"Player.h"
 #include <cmath>
 #include <cstdlib>
@@ -6,9 +7,16 @@
 using namespace std;
 //Enemyの初期化
 Enemy::Enemy(float startX, float startY)
-    : x(startX), y(startY),speed(2.0f), Runaway(100.0f),moveX(0.0f), moveY(0.0f)
+    : x(startX), y(startY),speed(2.0f), Runaway(100.0f),moveX(0.0f), moveY(0.0f),
+    imageHandle(LoadGraph("Enemy.png"))
 {
 }
+//敵の描画
+void Enemy::Draw() const
+{
+    DrawGraph(static_cast<int>(x), static_cast<int>(y),imageHandle, TRUE);
+}
+
 //フレーム更新
 void Enemy::Update(const Player& player)
 {
@@ -80,4 +88,6 @@ void Enemy::Update(const Player& player)
        offsetY = y - playerY;
 
    }
+
+
 }
