@@ -67,11 +67,14 @@ void Player::Draw()
 
 void Player::Update()
 {
-	Draw();
+	currentMouse = GetMouseInput();
 	HitEnemy();
 	PushEnemy();
 	ChoiceEnemy();
+	ShotEnemy();
 	Move();
+	Draw();
+	prevMouse = currentMouse;
 }
 
 void Player::Move()
@@ -92,11 +95,6 @@ void Player::Move()
 	{
 		posX += MOVE_SPEED;
 	}
-	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0)
-	{
-		DrawString(20, 20, "クリックされています", GetColor(255, 0, 0));
-	}
-
 	if (posX < 32) posX = 32;
 	if (posX > 1888) posX = 1888;
 
@@ -162,6 +160,7 @@ void Player::HitEnemy()
 
 			enemy[i].ey =
 				static_cast<int>(playerY + enemy[i].offsetY);
+			/*ChoiceEnemy();*/
 		}
 	}
 }
@@ -219,14 +218,51 @@ void Player::ChoiceEnemy()
 {
 	handCount = static_cast<int>(playerhand.size());
 	// マウスの状態を取得
-	currentMouse = GetMouseInput();
+	/*currentMouse = GetMouseInput();*/
 	if ((currentMouse & MOUSE_INPUT_RIGHT) != 0 && (prevMouse & MOUSE_INPUT_RIGHT) == 0 && handCount > 0)
 	{
 		// 敵を選択するロジック
 		choice = (choice + 1) % handCount;
 		
 	}
-	DrawFormatString(20, 40, GetColor(255,0,0), "choice%d", choice);
-	prevMouse = currentMouse;
+	DrawFormatString(20, 40, GetColor(255,0,0),"choice: %d", choice+1);
+	/*prevMouse = currentMouse;*/
 
+}
+
+void Player::ShotEnemy()
+{
+	if (playerhand.empty())return;
+	int mouseX, mouseY;
+	GetMousePoint(&mouseX, &mouseY);
+	/*currentMouse = GetMouseInput();*/
+	if ((currentMouse & MOUSE_INPUT_LEFT) && !(prevMouse & MOUSE_INPUT_LEFT))
+	{
+		isDragging = true;
+		dragStartX = mouseX;
+		dragStartY = mouseY;
+		// ドラッグ開始時間を記録
+		dragStartTime = GetNowCount();
+		dragDuration = 0;
+	}
+	if (isDragging)
+	{
+		dragDuration = GetNowCount() - dragStartTime;
+	}
+	if (!(currentMouse & MOUSE_INPUT_LEFT) && (prevMouse & MOUSE_INPUT_LEFT))
+	{
+		if (isDragging)
+		{
+			isDragging = false;
+			dragDuration = GetNowCount() - dragStartTime;
+			vx = (dragStartX - mouseX) * 0.1f;
+			vy = (dragStartY - mouseY) * 0.1f;
+		}
+
+	}
+	if (isDragging)
+	{
+		DrawLine(dragStartX, dragStartY, mouseX, mouseY, GetColor(255, 0, 0));
+	}
+	//prevMouse = currentMouse;
 }

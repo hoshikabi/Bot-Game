@@ -24,6 +24,12 @@ private:
 	int choice = 0;
 	int prevMouse = 0;
 	int currentMouse = 0;
+	int dragStartX, dragStartY;//開始位置
+	int dragStartTime = 0;//ドラッグ開始時間
+	int dragDuration = 0;//ドラッグ時間
+	bool isDragging = false; // ドラッグ中かどうか
+
+	int vx, vy;//引っ張った時の移動速度
 
 
 	Enemy enemy[3]; //仮の敵を保持
@@ -69,6 +75,9 @@ public:
 /// <param name="color">色</param>
 /// <param name="isFill">塗りつぶし</param>
 	void DrawRect(unsigned int color,bool isFill);
-
+	/// <summary>
+	/// Enemyの選択
+	/// </summary>
 	void ChoiceEnemy();
+	void ShotEnemy();
 };
