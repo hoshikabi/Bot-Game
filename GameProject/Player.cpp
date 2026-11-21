@@ -20,6 +20,8 @@ namespace
 	constexpr float DRAG_POWER_MED = 0.15f;
 	constexpr float DRAG_POWER_MAX = 0.2f;
 
+	constexpr float MAX_SPEED = 10.0f;
+
 	constexpr int ENEMY_COUNT = 3;
 }
 
@@ -269,8 +271,15 @@ void Player::ShotEnemy()
 		{
 			isDragging = false;
 			dragDuration = GetNowCount() - dragStartTime;
-			vx = (dragStartX - mouseX) * 0.1f;
-			vy = (dragStartY - mouseY) * 0.1f;
+			float dx = static_cast<float>(dragStartX - mouseX);
+			float dy = static_cast<float>(dragStartY - mouseY);
+			float distance = sqrtf(dx * dx + dy * dy);
+			if(distance > 0.0f)
+			{
+				float dirX = dx / distance;
+				float dirY = dy / distance;
+			}
+			
 		}
 
 	}
