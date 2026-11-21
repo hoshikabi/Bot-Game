@@ -10,6 +10,16 @@ namespace
 	constexpr float  MOVE_SPEED = 2.0f;
 	constexpr float DIAGONAL_FACTOR = 0.707f;
 
+	//引っ張った時間
+	constexpr int DRAG_DURATION_MIN = 1000;
+	constexpr int DRAG_DURATION_MED = 2000;
+	constexpr int DRAG_DURATION_MAX = 3000;
+
+	//時間ごとの放つ強さ
+	constexpr float DRAG_POWER_MIN = 0.1f;
+	constexpr float DRAG_POWER_MED = 0.15f;
+	constexpr float DRAG_POWER_MAX = 0.2f;
+
 	constexpr int ENEMY_COUNT = 3;
 }
 
@@ -248,6 +258,10 @@ void Player::ShotEnemy()
 	if (isDragging)
 	{
 		dragDuration = GetNowCount() - dragStartTime;
+		int selectEnemy = playerhand[choice];
+		int targetX = enemy[selectEnemy].ex + (dragStartX - mouseX);
+		int targetY = enemy[selectEnemy].ey + (dragStartY - mouseY);
+		DrawLine(enemy[selectEnemy].ex, enemy[selectEnemy].ey, targetX, targetY, GetColor(0, 255, 0));
 	}
 	if (!(currentMouse & MOUSE_INPUT_LEFT) && (prevMouse & MOUSE_INPUT_LEFT))
 	{
@@ -263,6 +277,8 @@ void Player::ShotEnemy()
 	if (isDragging)
 	{
 		DrawLine(dragStartX, dragStartY, mouseX, mouseY, GetColor(255, 0, 0));
+		
+
 	}
 	//prevMouse = currentMouse;
 }

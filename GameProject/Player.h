@@ -29,7 +29,7 @@ private:
 	int dragDuration = 0;//ドラッグ時間
 	bool isDragging = false; // ドラッグ中かどうか
 
-	int vx, vy;//引っ張った時の移動速度
+	float vx, vy;//引っ張った時の移動速度
 
 
 	Enemy enemy[3]; //仮の敵を保持
