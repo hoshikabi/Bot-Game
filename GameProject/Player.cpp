@@ -80,6 +80,7 @@ void Player::Draw()
 void Player::Update()
 {
 	currentMouse = GetMouseInput();
+	MoveShotEnemy();
 	HitEnemy();
 	PushEnemy();
 	ChoiceEnemy();
@@ -136,7 +137,7 @@ void Player::HitEnemy()
 	handCount = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		if (!enemy[i].isAttached)
+		if (!enemy[i].isAttached && !enemy[i].isShot)
 		{
 			if (CheckHitCircle(*this, enemy[i]))
 			{
@@ -278,6 +279,32 @@ void Player::ShotEnemy()
 			{
 				float dirX = dx / distance;
 				float dirY = dy / distance;
+
+				//ドラッグ時間に応じて
+				float power = DRAG_POWER_MIN;
+				if (dragDuration < DRAG_DURATION_MAX)
+				{
+					power = DRAG_POWER_MAX;
+				}
+				else if (dragDuration >= DRAG_DURATION_MED)
+				{
+					power = DRAG_POWER_MED;
+				}
+				float speed = distance * power;
+				
+				int selectEnemy = playerhand[choice];
+				enemy[selectEnemy].isAttached = false;
+				enemy[selectEnemy].isShot = true;
+				enemy[selectEnemy].vx = dirX * speed;
+				enemy[selectEnemy].vy = dirY * speed;
+
+				playerhand.erase(playerhand.begin() + choice);
+				if (playerhand.empty()) {
+					choice = 0;
+				}
+				else if (choice >= static_cast<int>(playerhand.size())) {
+					choice = 0;
+				}
 			}
 			
 		}
@@ -290,4 +317,26 @@ void Player::ShotEnemy()
 
 	}
 	//prevMouse = currentMouse;
+}
+
+void Player::MoveShotEnemy()
+{
+	for (int i = 0; i < ENEMY_COUNT; i++)
+	{
+		if (enemy[i].isShot)
+		{
+			enemy[i].ex += static_cast<int>(enemy[i].vx);
+			enemy[i].ey += static_cast<int>(enemy[i].vy);
+			enemy[i].vx *= 0.98f; // 減速
+			enemy[i].vy *= 0.98f; // 減速
+
+			float currentSpeed = sqrtf(enemy[i].vx * enemy[i].vx + enemy[i].vy * enemy[i].vy);
+			if(currentSpeed < 0.5f){
+				enemy[i].vx = 0.0f;
+				enemy[i].vy = 0.0f;
+				enemy[i].isShot = false;
+			
+			}
+		}
+	}
 }

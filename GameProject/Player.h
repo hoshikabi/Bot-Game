@@ -10,6 +10,8 @@ public:
 	float offsetX = 0;       // プレイヤーの相対位置
 	float offsetY = 0;
 	int EnemyColor;
+	bool isShot = false;
+	float vx, vy; // 敵の発射時の移動速度
 };
 
 class Player
@@ -79,5 +81,9 @@ public:
 	/// Enemyの選択
 	/// </summary>
 	void ChoiceEnemy();
+	/// <summary>
+	/// 発射軌道
+	/// </summary>
 	void ShotEnemy();
+	void MoveShotEnemy();
 };
