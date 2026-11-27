@@ -8,21 +8,73 @@ using namespace std;
 //Enemyの初期化
 Enemy::Enemy(float startX, float startY)
     : x(startX), y(startY),speed(2.0f), Runaway(100.0f),moveX(0.0f), moveY(0.0f),
-    imageHandle(LoadGraph("Enemy.png"))
+    imageHandle(LoadGraph("image/Enemy.png"))
 {
 }
 //敵の描画
 void Enemy::Draw() const
 {
-    DrawGraph(static_cast<int>(x), static_cast<int>(y),imageHandle, TRUE);
+    DrawRotaGraph(static_cast<int>(x), static_cast<int>(y), 0.167 ,0,imageHandle, TRUE);
+}
+
+bool Enemy::IsAttached() const
+{
+    return isAttached;
+}
+
+void Enemy::CheckHitEnemy(const Enemy &other, float playerX, float playerY)
+{
+    if (isAttached == true || other.IsAttached() == false)
+    {
+        //くっつかなくていいので終わる
+        return;
+    }
+
+    // 移動後のCPUとCPU同氏の座標の差
+    const float diffX = x - other.x;
+    const float diffY = y - other.y;
+    const float distanceSquared = diffX * diffX + diffY * diffY;//三平方の定理からそれぞれの中心からの距離を出す
+
+    const float touchDistance = radius + other.radius;
+    //中心からの距離が半径の合計以下だったら
+    if (distanceSquared <= touchDistance * touchDistance)
+    {
+        // ここまで来たら、2つの円が触れているか、重なっている
+        if (distanceSquared == 0)
+        {
+            x = other.x + touchDistance;
+            y = other.y;
+        }
+        else
+        {
+            //Xの過ぎた分の押し戻し
+            x += diffX / sqrt(distanceSquared) * (touchDistance - sqrt(distanceSquared));
+            //Yの過ぎた文の押し戻し
+            y += diffY / sqrt(distanceSquared) * (touchDistance - sqrt(distanceSquared));
+        }
+        //押し戻した後、鬼の中心から見たCPUの位置を保存する
+        offsetX = x - playerX;
+        offsetY = y - playerY;
+
+        isAttached = true;
+    }
 }
 
 //フレーム更新
-void Enemy::Update(const Player& player)
+void Enemy::Update(float playerX, float playerY)
 {
+    //くっついているなら
+    if (isAttached == true)
+    {
+        x = playerX + offsetX;
+        y = playerY + offsetY;
+        //updateを終わらせる
+        return;
+    }
+   
     //Playerとの距離
-    float dx = x;//- player.x;
-    float dy = y;//- player.y;
+    float dx = x - playerX;
+    float dy = y - playerY;
 
     //PlayerとEnemyの距離を二乗する
     float distances = dx * dx + dy * dy;
@@ -57,8 +109,6 @@ void Enemy::Update(const Player& player)
     y += moveY * speed;
 
    // 仮のプレイヤーの中心と半径
-   const float playerX = 100.0f;
-   const float playerY = 100.0f;
    const float playerRadius = 32.0f;
 
    // 移動後のCPUとプレイヤーの中心座標の差
@@ -87,7 +137,9 @@ void Enemy::Update(const Player& player)
        offsetX = x - playerX;
        offsetY = y - playerY;
 
+       isAttached = true;
    }
+
 
 
 }
