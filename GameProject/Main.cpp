@@ -1,5 +1,6 @@
 #include"DxLib.h"
 #include"Enemy.h"
+#include"Map.h"
 #include"Vector"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
@@ -14,6 +15,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	float playerX = 960;
 	float playerY = 540;
+	//map作成
+	Map map("MapData/map.csv");
 	//vectorでEnemyを作る
 	std::vector<Enemy> enemyis;
 	enemyis.push_back(Enemy(300, 300));
